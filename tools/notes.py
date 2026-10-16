@@ -7,34 +7,45 @@ work, outdir, date, label = sys.argv[1:5]
 REF = {  # reference TikTok in "Sounds folder" -> original file name
     's01': 'Video 2026-10-15, 9 01 32 PM.mp4', 's02': 'Video 2026-10-15, 9 00 33 PM.mp4',
     's03': 'Video 2026-10-15, 7 51 27 PM.mp4', 's05': 'Video 2026-10-15, 9 04 12 PM.mp4',
-    's06': 'Video 2026-10-15, 9 00 55 PM.mp4', 's09': 'Video 2026-10-15, 9 04 21 PM.mp4'}
+    's06': 'Video 2026-10-15, 9 00 55 PM.mp4', 's09': 'Video 2026-10-15, 9 04 21 PM.mp4',
+    's04': 'Video 2026-10-15, 8 48 53 PM.mp4', 's07': 'Video 2026-10-15, 9 04 38 PM.mp4',
+    's08': 'Video 2026-10-15, 9 03 06 PM.mp4', 's10': 'Video 2026-10-15, 9 01 51 PM.mp4',
+    's11': 'Video 2026-10-15, 8 52 39 PM.mp4', 's12': 'Video 2026-10-15, 9 09 10 PM.mp4'}
 TEXT = {
     's01': 'Be proud of your mistakes. Some people don\'t even have the guts to try.',
     's02': 'Sometimes you gotta hop off multiplayer and start grinding story mode',
     's03': 'Sorry, I\'m busy',
     's05': 'what this q4 feels like',
     's06': 'Once you learn how to shoot B-roll, you start seeing content literally everywhere you go.',
-    's09': 'Every man needs one friend who refuses to let him stay average.'}
+    's09': 'Every man needs one friend who refuses to let him stay average.',
+    's04': 'the career is more at stake when you\'re in your prime',
+    's07': 'pov: the other side of the risk', 's08': 'JUST START!',
+    's10': 'First generation where a laptop & cellphone earns more than a degree',
+    's11': 'they hope i fall off, ain\'t no way',
+    's12': 'word-by-word captions in the original, see that TikTok for the wording'}
 VIBE = {
     's01': 'night luxury montage, one cut per beat (~129 bpm)',
     's02': 'travel / cars / night city, long holds then a fast flurry',
     's03': 'dark luxury with red + blue accent light, 0.6 s cuts',
     's05': 'single cinematic shot, 2.39:1 letterbox, slow push-in',
     's06': 'fast b-roll montage, 0.2 to 0.7 s cuts',
-    's09': 'night city, villas and street, mixed fast and long cuts'}
+    's09': 'night city, villas and street, mixed fast and long cuts',
+    's04': 'one cut per beat (~144 bpm) lifestyle montage', 's07': 'brand-owner story, 0.8 s cuts',
+    's08': 'brand-owner day, ~1 s cuts', 's10': 'laptop-with-a-view, longer holds',
+    's11': 'one cut per beat (~129 bpm) city montage', 's12': 'horizontal 16:9 story, 0.3 to 1.5 s cuts'}
 plans = [json.load(open(p)) for p in sorted(glob.glob(work + '/*_plan.json'))]
 plans.sort(key=lambda p: p['video'])
 lines = [f'# Run notes: {date} {label}', '',
-         'All videos are 9:16 (1080x1920, 30 fps), vertical clips only, no text on screen, no SFX.',
+         'Vertical videos are 9:16 (1080x1920, 30 fps) from vertical clips; the one horizontal video is 16:9 (1920x1080) from horizontal clips. No text on screen, no SFX.',
          'Each one recreates a TikTok from "Sounds folder": same sound (outro trimmed off), same cut times, your clips.',
-         'Look: one shared grade (cool shadows, deep blacks, lowered exposure, soft highlight glow, film grain).', '']
+         'Look: clean hard cuts, even bright exposure, light grade, very fine film grain, no flashes / whips / fast zooms.', '']
 log = []
 for p in plans:
     r = p['ref']
     clips = sorted({s['clip'] for s in p['plan']})
     lines += [f'## {p["video"]}', '',
               '- Type: personal lifestyle (recreation)',
-              '- Orientation / length: 9:16 vertical / %.1f s' % p['length'],
+              '- Orientation / length: %s / %.1f s' % ('16:9 horizontal (horizontal clips only)' if p['ref'] == 's12' else '9:16 vertical', p['length']) + (' (under 8 s: the sound itself is only that long)' if p['length'] < 8 else ''),
               f'- Sound: audio from "{REF[r]}" (Sounds folder), 0:00 to {p["length"]:.1f}s, TikTok outro removed. '
               'To use the official sound in-app, open that saved TikTok and tap its sound.',
               f'- Reference vibe: {VIBE[r]}',
