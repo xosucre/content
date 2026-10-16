@@ -21,7 +21,7 @@ VIBE = {
     's03': 'dark luxury with red + blue accent light, 0.6 s cuts',
     's05': 'single cinematic shot, 2.39:1 letterbox, slow push-in',
     's06': 'fast b-roll montage, 0.2 to 0.7 s cuts',
-    's09': 'cars, villas and night city, mixed fast and long cuts'}
+    's09': 'night city, villas and street, mixed fast and long cuts'}
 plans = [json.load(open(p)) for p in sorted(glob.glob(work + '/*_plan.json'))]
 plans.sort(key=lambda p: p['video'])
 lines = [f'# Run notes: {date} {label}', '',

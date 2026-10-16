@@ -32,10 +32,9 @@ GLOW = ("split[a][b];[b]gblur=sigma=22,curves=all='0/0 0.55/0 1/0.9'[g];"
         "[a][g]blend=all_mode=screen:all_opacity=0.35")
 # slow push-in, 2.39:1 letterbox like the reference, two soft lightning-style flashes
 CROP_Y = int(os.environ.get('CROP_Y', 560))
-z = f"(1+0.10*t/{END})"
+z = f"(1+0.03*t/{END})"
 vf = (f"eq=gamma=1.6,scale=w='trunc(1080*{z}/2)*2':h='trunc(1920*{z}/2)*2':eval=frame,"
       f"crop=1080:1920,crop=1080:610:0:{CROP_Y},"
-      f"eq=brightness='0.22*exp(-9*abs(t-4.5))+0.28*exp(-9*abs(t-9.03))+0.18*exp(-9*abs(t-9.27))':eval=frame,"
       f"pad=1080:1920:0:655:black,format=yuv420p")
 cat = f'{work}/s05_cat.mp4'
 subprocess.run(['ffmpeg', '-y', '-v', 'error', '-ss', f'{t0:.2f}', '-t', f'{END + 0.3:.2f}', '-i', f'{S}/mezz/{CLIP}.mp4',
@@ -47,7 +46,7 @@ subprocess.run(['ffmpeg', '-y', '-v', 'error', '-t', f'{END}', '-i', f'{S}/ref/s
                 '-c:a', 'aac', '-b:a', '192k', aud], check=True)
 final = f'{outdir}/personal_06_window-silhouette.mp4'
 subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', cat, '-i', aud,
-                '-filter_complex', f'[0:v]{GRADE},{GLOW},noise=alls=9:allf=t[v]',
+                '-filter_complex', f'[0:v]{GRADE},{GLOW},noise=alls=5:allf=t[v]',
                 '-map', '[v]', '-map', '1:a', '-c:v', 'libx264', '-preset', 'medium', '-crf', '21', '-maxrate', '14M', '-bufsize', '28M', '-pix_fmt', 'yuv420p',
                 '-r', str(FPS), '-c:a', 'copy', '-movflags', '+faststart', '-t', f'{END}', final], check=True)
 json.dump({'video': os.path.basename(final), 'ref': 's05', 'length': END,
