@@ -10,7 +10,10 @@ REF = {  # reference TikTok in "Sounds folder" -> original file name
     's06': 'Video 2026-10-15, 9 00 55 PM.mp4', 's09': 'Video 2026-10-15, 9 04 21 PM.mp4',
     's04': 'Video 2026-10-15, 8 48 53 PM.mp4', 's07': 'Video 2026-10-15, 9 04 38 PM.mp4',
     's08': 'Video 2026-10-15, 9 03 06 PM.mp4', 's10': 'Video 2026-10-15, 9 01 51 PM.mp4',
-    's11': 'Video 2026-10-15, 8 52 39 PM.mp4', 's12': 'Video 2026-10-15, 9 09 10 PM.mp4'}
+    's11': 'Video 2026-10-15, 8 52 39 PM.mp4', 's12': 'Video 2026-10-15, 9 09 10 PM.mp4',
+    't01': 'Video 2026-10-16, 3 19 09 AM.mp4', 't02': 'Video 2026-10-16, 3 21 59 AM.mp4',
+    't03': 'Video 2026-10-16, 3 18 57 AM.mp4', 't04': 'Video 2026-10-16, 3 18 05 AM.mp4',
+    't05': 'Video 2026-10-16, 3 12 31 AM.mp4'}
 TEXT = {
     's01': 'Be proud of your mistakes. Some people don\'t even have the guts to try.',
     's02': 'Sometimes you gotta hop off multiplayer and start grinding story mode',
@@ -22,7 +25,12 @@ TEXT = {
     's07': 'pov: the other side of the risk', 's08': 'JUST START!',
     's10': 'First generation where a laptop & cellphone earns more than a degree',
     's11': 'they hope i fall off, ain\'t no way',
-    's12': 'word-by-word captions in the original, see that TikTok for the wording'}
+    's12': 'word-by-word captions in the original, see that TikTok for the wording',
+    't01': 'You\'re still in the same position you were then. None of your dreams have come true.',
+    't02': 'Why can\'t you sleep?',
+    't03': 'word-by-word captions in the original (now / today / maybe / tomorrow ... only one champion), see that TikTok',
+    't04': 'when she tries to talk to me but all I hear in my head is this',
+    't05': 'When I didn\'t have enough money to buy whatever I wanted, I couldn\'t fall asleep.'}
 VIBE = {
     's01': 'night luxury montage, one cut per beat (~129 bpm)',
     's02': 'travel / cars / night city, long holds then a fast flurry',
@@ -32,7 +40,10 @@ VIBE = {
     's09': 'night city, villas and street, mixed fast and long cuts',
     's04': 'one cut per beat (~144 bpm) lifestyle montage', 's07': 'brand-owner story, 0.8 s cuts',
     's08': 'brand-owner day, ~1 s cuts', 's10': 'laptop-with-a-view, longer holds',
-    's11': 'one cut per beat (~129 bpm) city montage', 's12': 'horizontal 16:9 story, 0.3 to 1.5 s cuts'}
+    's11': 'one cut per beat (~129 bpm) city montage', 's12': 'horizontal 16:9 story, 0.3 to 1.5 s cuts',
+    't01': 'single steady shot from behind', 't02': 'moody night-street montage, 8 cuts',
+    't03': 'horizontal hustle montage, 29 fast cuts (reference is 4:3, made 16:9)',
+    't04': 'single steady shot, person lost in thought', 't05': 'long shot then quick cuts, standing out on the street at night'}
 plans = [json.load(open(p)) for p in sorted(glob.glob(work + '/*_plan.json'))]
 plans.sort(key=lambda p: p['video'])
 lines = [f'# Run notes: {date} {label}', '',
