@@ -24,8 +24,8 @@ VIDEOS = {
         'p005|p004|p003', 'p015|p013', 'p147|' + BRAND, 'p008|p006', 'p139|' + BRAND)},
     # s08: "JUST START!": brand-owner day, ~1 s cuts
     's08': {'ref': 's08', 'out': 'personal_08_just-start.mp4', 'shots': S(
-        'p137|' + BRAND, 'p013|p015', 'p140|' + BRAND, 'p143|' + BRAND, 'p151|' + BRAND, 'p153|' + BRAND,
-        'p145|' + BRAND, 'p141|' + BRAND, 'p134|p135|' + BRAND)},
+        'p137|' + BRAND, 'p013|p015', 'p140|' + BRAND, 'p007|p004', 'p151|' + BRAND, 'p008|p001',
+        'p145|' + BRAND, 'p006|p003|p141', 'p135|' + BRAND)},
     # s10: laptop-on-the-balcony, remote work with a view
     's10': {'ref': 's10', 'out': 'personal_09_laptop-view.mp4', 'shots': S(
         'p035|' + HOTEL, 'p033|' + HOTEL, 'p036|' + HOTEL, 'p046|' + HOTEL, 'p031|' + HOTEL,

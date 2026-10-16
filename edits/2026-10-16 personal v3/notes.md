@@ -1,4 +1,4 @@
-# Run notes: 2026-10-16 personal page v3 (bright, clean cuts)
+# Run notes: 2026-10-16 personal page v3 (bright, clean cuts, shuffled order)
 
 Vertical videos are 9:16 (1080x1920, 30 fps) from vertical clips; the one horizontal video is 16:9 (1920x1080) from horizontal clips. No text on screen, no SFX.
 Each one recreates a TikTok from "Sounds folder": same sound (outro trimmed off), same cut times, your clips.
@@ -20,7 +20,7 @@ Look: clean hard cuts, even bright exposure, light grade, very fine film grain, 
 - Sound: audio from "Video 2026-10-15, 9 03 06 PM.mp4" (Sounds folder), 0:00 to 9.3s, TikTok outro removed. To use the official sound in-app, open that saved TikTok and tap its sound.
 - Reference vibe: brand-owner day, ~1 s cuts
 - Suggested text (you add it): "JUST START!"
-- Shots: 9; clips used: p013, p135, p137, p140, p141, p143, p145, p151, p153
+- Shots: 9; clips used: p006, p007, p008, p013, p135, p137, p140, p145, p151
 
 ## personal_09_laptop-view.mp4
 
@@ -56,4 +56,4 @@ Look: clean hard cuts, even bright exposure, light grade, very fine film grain, 
 - Sound: audio from "Video 2026-10-15, 9 09 10 PM.mp4" (Sounds folder), 0:00 to 14.8s, TikTok outro removed. To use the official sound in-app, open that saved TikTok and tap its sound.
 - Reference vibe: horizontal 16:9 story, 0.3 to 1.5 s cuts
 - Suggested text (you add it): "word-by-word captions in the original, see that TikTok for the wording"
-- Shots: 18; clips used: p057, p072, p074, p075, p076, p081, p106, p108, p109, p110, p113, p116, p127, p128, p129, p131, p133, p134
+- Shots: 18; clips used: p057, p072, p075, p076, p081, p082, p106, p108, p109, p110, p113, p116, p127, p128, p129, p131, p133, p134
