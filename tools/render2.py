@@ -36,7 +36,9 @@ for tag, ids in {
     'atrium': 'p102 p103 p104 p105 p099', 'food': 'p060 p061 p063', 'brand': 'p000 p001 p002 p003 p004 p005 p006 p007 p008',
     'factory': 'p137 p138 p139 p140 p141 p142 p143 p145 p147 p149 p151 p153', 'selfie': 'p013 p014 p015 p135',
     'neon_plaza': 'p108 p109 p110 p111 p112 p113 p115 p127 p128 p129', 'dinner': 'p131 p133', 'stairs': 'p134',
-    'pool': 'p116', 'gym_window': 'p057', 'lantern': 'p096'}.items():
+    'pool': 'p116', 'gym_window': 'p057', 'lantern': 'p096',
+    'night_street_h': 'p050 p051 p054 p092 p094 p114', 'roof_h': 'p084 p085 p087', 'hotel_night_h': 'p068 p117 p119 p123 p124 p125 p097',
+    'desk': 'p044 p042 p043 p047'}.items():
     for i_ in ids.split():
         TAGS[i_] = tag
 os.makedirs(work, exist_ok=True)
@@ -148,7 +150,7 @@ def shot_filter(d, g):
 
 def main():
     shots = V['shots']
-    ref = shots_ref[V['ref'][1:]]
+    ref = shots_ref.get(V['ref']) or shots_ref[V['ref'][1:]]
     cuts = ref['shots']
     assert len(cuts) == len(shots), (V['ref'], len(cuts), len(shots))
     end = ref['end']
