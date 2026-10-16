@@ -150,7 +150,7 @@ def shot_filter(flags, d, gamma, ramp):
 
 def main():
     shots = V['shots']
-    ref = shots_ref[V['ref']]
+    ref = shots_ref[V['ref'][1:]]
     cuts = ref['shots']
     assert len(cuts) == len(shots), (len(cuts), len(shots))
     end = ref['end']
@@ -184,7 +184,7 @@ def main():
     final = f'{outdir}/{V["out"]}'
     run(['ffmpeg', '-y', '-v', 'error', '-i', cat, '-i', aud,
          '-filter_complex', f'[0:v]{GRADE},{GLOW},noise=alls=9:allf=t[v]',
-         '-map', '[v]', '-map', '1:a', '-c:v', 'libx264', '-preset', 'medium', '-crf', '17', '-pix_fmt', 'yuv420p',
+         '-map', '[v]', '-map', '1:a', '-c:v', 'libx264', '-preset', 'medium', '-crf', '21', '-maxrate', '14M', '-bufsize', '28M', '-pix_fmt', 'yuv420p',
          '-r', str(FPS), '-c:a', 'copy', '-movflags', '+faststart', '-t', f'{end:.3f}', final])
     json.dump({'video': V['out'], 'ref': V['ref'], 'length': round(end, 2), 'plan': plan},
               open(f'{work}/{V["ref"]}_plan.json', 'w'), indent=1)

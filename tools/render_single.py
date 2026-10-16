@@ -23,7 +23,7 @@ while t + L <= lib['dur'] - 0.2:
     if best is None or sc > best[0]:
         best = (sc, t)
     t += 0.2
-t0 = best[1]
+t0 = float(os.environ.get('T0', best[1]))
 
 GRADE = ("eq=contrast=1.12:saturation=1.08,"
          "colorbalance=rs=-0.05:bs=0.08:rm=-0.03:bm=0.05:bh=0.025:rh=-0.01,"
@@ -33,7 +33,7 @@ GLOW = ("split[a][b];[b]gblur=sigma=22,curves=all='0/0 0.55/0 1/0.9'[g];"
 # slow push-in, 2.39:1 letterbox like the reference, two soft lightning-style flashes
 CROP_Y = int(os.environ.get('CROP_Y', 560))
 z = f"(1+0.10*t/{END})"
-vf = (f"eq=gamma=0.85,scale=w='trunc(1080*{z}/2)*2':h='trunc(1920*{z}/2)*2':eval=frame,"
+vf = (f"eq=gamma=1.6,scale=w='trunc(1080*{z}/2)*2':h='trunc(1920*{z}/2)*2':eval=frame,"
       f"crop=1080:1920,crop=1080:610:0:{CROP_Y},"
       f"eq=brightness='0.22*exp(-9*abs(t-4.5))+0.28*exp(-9*abs(t-9.03))+0.18*exp(-9*abs(t-9.27))':eval=frame,"
       f"pad=1080:1920:0:655:black,format=yuv420p")
@@ -48,7 +48,7 @@ subprocess.run(['ffmpeg', '-y', '-v', 'error', '-t', f'{END}', '-i', f'{S}/ref/s
 final = f'{outdir}/personal_06_window-silhouette.mp4'
 subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', cat, '-i', aud,
                 '-filter_complex', f'[0:v]{GRADE},{GLOW},noise=alls=9:allf=t[v]',
-                '-map', '[v]', '-map', '1:a', '-c:v', 'libx264', '-preset', 'medium', '-crf', '17', '-pix_fmt', 'yuv420p',
+                '-map', '[v]', '-map', '1:a', '-c:v', 'libx264', '-preset', 'medium', '-crf', '21', '-maxrate', '14M', '-bufsize', '28M', '-pix_fmt', 'yuv420p',
                 '-r', str(FPS), '-c:a', 'copy', '-movflags', '+faststart', '-t', f'{END}', final], check=True)
 json.dump({'video': os.path.basename(final), 'ref': 's05', 'length': END,
            'plan': [{'shot': 0, 'clip': CLIP, 'src_t': round(t0, 2), 'dur': END, 'flags': 'push+letterbox+flash'}]},
