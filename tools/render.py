@@ -9,6 +9,7 @@ Each shot in a storyboard is (clip_spec, flags):
 import sys, os, json, math, subprocess, importlib.util, shutil
 
 FPS = 30
+CLEAN = os.environ.get('CLEAN') == '1'   # clean cuts only: no flash / whip / punch / ramp
 sb_path, key, work, outdir = sys.argv[1:5]
 spec = importlib.util.spec_from_file_location('sb', sb_path)
 sb = importlib.util.module_from_spec(spec)
@@ -102,6 +103,8 @@ def gamma_for(l):
 
 
 def zoom_expr(flags, d):
+    if CLEAN:
+        return f'(1+0.03*t/{d})' if d >= 0.9 else '1'
     base = '1'
     if 'P' in flags:
         base = f'(1+0.13*exp(-t*7)+0.02*t/{d})'
@@ -118,6 +121,8 @@ def zoom_expr(flags, d):
 
 
 def shot_filter(flags, d, gamma, ramp):
+    if CLEAN:
+        flags = ''
     vf = []
     if ramp:
         k0, k1 = ramp
@@ -161,7 +166,7 @@ def main():
         fa, fb = round(a * FPS), (round(b * FPS) if i < len(cuts) - 1 else total_frames)
         n = max(1, fb - fa)
         d = n / FPS
-        ramp = (1.0, 0.5) if 'R' in flags and d >= 1.0 else None
+        ramp = (1.0, 0.5) if 'R' in flags and d >= 1.0 and not CLEAN else None
         Ls = (2 * d / 1.5) if ramp else d
         c, t0, l = pick(cl, Ls + 0.1, i)
         g = gamma_for(l)
@@ -183,7 +188,7 @@ def main():
          '-c:a', 'aac', '-b:a', '192k', aud])
     final = f'{outdir}/{V["out"]}'
     run(['ffmpeg', '-y', '-v', 'error', '-i', cat, '-i', aud,
-         '-filter_complex', f'[0:v]{GRADE},{GLOW},noise=alls=9:allf=t[v]',
+         '-filter_complex', f'[0:v]{GRADE},{GLOW},noise=alls=5:allf=t[v]',
          '-map', '[v]', '-map', '1:a', '-c:v', 'libx264', '-preset', 'medium', '-crf', '21', '-maxrate', '14M', '-bufsize', '28M', '-pix_fmt', 'yuv420p',
          '-r', str(FPS), '-c:a', 'copy', '-movflags', '+faststart', '-t', f'{end:.3f}', final])
     json.dump({'video': V['out'], 'ref': V['ref'], 'length': round(end, 2), 'plan': plan},
